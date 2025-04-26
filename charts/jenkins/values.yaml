@@ -4,10 +4,10 @@ controller:
   # or `http://` depending on the `tls` configuration.
   # The Protocol can be overwritten by specifying `controller.jenkinsUrlProtocol`.
   # -- Set protocol for Jenkins URL; `https` if `controller.ingress.tls`, `http` otherwise
-  jenkinsUrlProtocol: "http"
+  jenkinsUrlProtocol: "https"
 
   # -- Set Jenkins URL if you are not using the ingress definitions provided by the chart
-  jenkinsUrl: "http://homeserver.local/jenkins"
+  jenkinsUrl: "https://homeserver.local/jenkins"
 
   # If you set this prefix and use ingress controller, then you might want to set the ingress path below
   # I.e., "/jenkins"
@@ -75,7 +75,6 @@ controller:
     # -- Ingress annotations
     annotations:
       kubernetes.io/ingress.class: traefik
-      kubernetes.io/tls-acme: "true"
     ingressClassName: traefik
 
     # Set this path to jenkinsUriPrefix above or use annotations to rewrite path
@@ -84,11 +83,11 @@ controller:
 
     # configures the hostname e.g. jenkins.example.com
     # -- Ingress hostname
-    hostName:
+    hostName: homeserver.local
     # -- Hostname to serve assets from
     resourceRootUrl:
     # -- Ingress TLS configuration
-    tls: []
-    # - secretName: jenkins.cluster.local
-    #   hosts:
-    #     - jenkins.cluster.local
+    tls:
+      - secretName: homeserver-tls-cert
+        hosts:
+          - homeserver.local
