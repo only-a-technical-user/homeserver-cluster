@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: capacitor-ingress
+  namespace: components
+spec:
+  tls:
+    - secretName: homeserver-tls-cert
+      hosts:
+        - homeserver.local
+  rules:
+    - host: homeserver.local
+      http:
+        paths:
+          - pathType: Prefix
+            path: /fluxui
+            backend:
+              service:
+                name: capacitor
+                port:
+                  number: 9000
