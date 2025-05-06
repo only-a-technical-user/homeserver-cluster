@@ -1,7 +1,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: jenkins
+  name: capacitor
   namespace: components
 spec:
   targetNamespace: components
@@ -10,10 +10,11 @@ spec:
   timeout: 5m
   wait: true
   prune: true
-  path: "./deploy/charts/jenkins"
+  path: "./kustom/capacitor"
   sourceRef:
-    kind: GitRepository
-    name: homeserver-cluster
+    kind: OCIRepository
+    name: capacitor
 resources:
-  - ./repo.yaml
-  - ./release.yaml
+  - ./kustom/capacitor/repo.yaml
+  - ./kustom/capacitor/policy.yaml
+  - ./kustom/capacitor/ingress.yaml

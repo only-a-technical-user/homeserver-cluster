@@ -32,9 +32,29 @@ openssl req -new -key homeserver.local.key -out homeserver.local.csr -subj "/CN=
 openssl x509 -req -in homeserver.local.csr -CA myCA.pem -CAkey myCA.key -CAcreateserial -out homeserver.local.crt -days 500 -sha256
 ```
 
+to add the certificates to the cluster:
+
+```sh
+kubectl create secret tls homeserver-tls-cert \
+  --cert=./certs/homeserver.local.crt \
+  --key=./certs/homeserver.local.key \
+  -n components
+```
+
 ## deployment
 
 for the deployment i use [fluxcd](https://fluxcd.io/).
+
+the bootstrapping command is as follows:
+```sh
+flux bootstrap github \
+  --token-auth \
+  --owner=only-a-technical-user \
+  --repository=homeserver-cluster \
+  --branch=main \
+  --path=deploy \
+  --personal
+```
 
 ## components
 
