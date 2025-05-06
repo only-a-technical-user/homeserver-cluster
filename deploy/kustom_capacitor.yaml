@@ -14,7 +14,3 @@ spec:
   sourceRef:
     kind: OCIRepository
     name: capacitor
-resources:
-  - ./kustom/capacitor/repo.yaml
-  - ./kustom/capacitor/policy.yaml
-  - ./kustom/capacitor/ingress.yaml
