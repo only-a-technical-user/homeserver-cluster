@@ -22,6 +22,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: traefik
 spec:
+  ingressClassName: traefik
   tls:
     - secretName: homeserver-tls-cert
       hosts:
@@ -31,9 +32,9 @@ spec:
       http:
         paths:
           - pathType: Prefix
-            path: /fluxui
+            path: /
             backend:
               service:
                 name: capacitor
                 port:
-                  name: http
+                  port: 9000
