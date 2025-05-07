@@ -26,7 +26,7 @@ spec:
   tls:
     - secretName: homeserver-tls-cert
       hosts:
-        - homeserver.local
+        - fluxui.homeserver.local
   rules:
     - host: fluxui.homeserver.local
       http:
