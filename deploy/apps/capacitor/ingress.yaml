@@ -14,6 +14,16 @@ spec:
     matchLabels:
       app.kubernetes.io/instance: capacitor
 ---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: strip-fluxui
+  namespace: components
+spec:
+  stripPrefix:
+    prefixes:
+      - "/fluxui"
+---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -21,14 +31,15 @@ metadata:
   namespace: components
   annotations:
     kubernetes.io/ingress.class: traefik
+    traefik.ingress.kubernetes.io/router.middlewares: components-strip-fluxui@kubernetescrd
 spec:
   ingressClassName: traefik
   tls:
     - secretName: homeserver-tls-cert
       hosts:
-        - fluxui.homeserver.local
+        - homeserver.local
   rules:
-    - host: fluxui.homeserver.local
+    - host: homeserver.local
       http:
         paths:
           - pathType: Prefix
