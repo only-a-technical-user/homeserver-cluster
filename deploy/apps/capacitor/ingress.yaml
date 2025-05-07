@@ -37,4 +37,4 @@ spec:
               service:
                 name: capacitor
                 port:
-                  port: 9000
+                  number: 9000
