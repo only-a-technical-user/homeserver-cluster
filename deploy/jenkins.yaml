@@ -19,7 +19,7 @@ spec:
   timeout: 5m
   wait: true
   prune: true
-  path: ./apps/jenkins
+  path: ./deploy/apps/jenkins
   sourceRef:
     kind: GitRepository
     name: flux-system

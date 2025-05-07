@@ -35,7 +35,7 @@ metadata:
 spec:
   targetNamespace: components
   interval: 5m
-  path: ./components/capacitor-addons
+  path: ./deploy/apps/capacitor
   prune: true
   wait: true
   sourceRef:
