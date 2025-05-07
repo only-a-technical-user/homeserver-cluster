@@ -43,7 +43,7 @@ spec:
       http:
         paths:
           - pathType: Prefix
-            path: /fluxui
+            path: /
             backend:
               service:
                 name: capacitor
