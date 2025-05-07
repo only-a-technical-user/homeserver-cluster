@@ -12,7 +12,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: jenkins
-        namespace: components
+        namespace: flux-system
   values:
     controller:
       jenkinsUrlProtocol: "https"

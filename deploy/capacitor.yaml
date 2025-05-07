@@ -3,7 +3,7 @@ apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: OCIRepository
 metadata:
   name: capacitor
-  namespace: components
+  namespace: flux-system
 spec:
   interval: 24h
   url: oci://ghcr.io/gimlet-io/capacitor-manifests
@@ -14,7 +14,7 @@ apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
   name: capacitor
-  namespace: components
+  namespace: flux-system
 spec:
   targetNamespace: components
   interval: 5m
@@ -22,7 +22,25 @@ spec:
   timeout: 5m
   wait: true
   prune: true
-  path: "./apps/capacitor"
   sourceRef:
     kind: OCIRepository
     name: capacitor
+    namespace: flux-system
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: capacitor-ingress
+  namespace: flux-system
+spec:
+  targetNamespace: components
+  interval: 5m
+  path: ./components/capacitor-addons
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  dependsOn:
+    - name: capacitor

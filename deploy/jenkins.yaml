@@ -2,7 +2,7 @@ apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: HelmRepository
 metadata:
   name: jenkins
-  namespace: components
+  namespace: flux-system
 spec:
   url: https://charts.jenkins.io
   interval: 24h
@@ -22,5 +22,5 @@ spec:
   path: ./apps/jenkins
   sourceRef:
     kind: GitRepository
-    name: homeserver-cluster
+    name: flux-system
     namespace: flux-system
