@@ -19,6 +19,8 @@ kind: Ingress
 metadata:
   name: capacitor-ingress
   namespace: components
+  annotations:
+    kubernetes.io/ingress.class: traefik
 spec:
   tls:
     - secretName: homeserver-tls-cert
@@ -34,4 +36,4 @@ spec:
               service:
                 name: capacitor
                 port:
-                  number: 9000
+                  name: http
