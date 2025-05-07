@@ -28,7 +28,7 @@ spec:
       hosts:
         - homeserver.local
   rules:
-    - host: homeserver.local
+    - host: fluxui.homeserver.local
       http:
         paths:
           - pathType: Prefix
