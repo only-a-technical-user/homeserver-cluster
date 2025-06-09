@@ -18,29 +18,6 @@ curl -sfL https://get.k3s.io | sh -
 sudo k3s kubectl get node
 ```
 
-### certificates
-
-to use tls i use a self signed certificate (this will ~probably~ never change in a future version. i created the cert using the following commands:
-
-```sh
-openssl genrsa -out myCA.key 2048
-openssl req -x509 -new -nodes -key myCA.key -sha256 -days 1024 -out myCA.pem -subj "/CN=HomeServerCA"
-
-openssl genrsa -out homeserver.local.key 2048
-openssl req -new -key homeserver.local.key -out homeserver.local.csr -subj "/CN=homeserver.local"
-
-openssl x509 -req -in homeserver.local.csr -CA myCA.pem -CAkey myCA.key -CAcreateserial -out homeserver.local.crt -days 500 -sha256
-```
-
-to add the certificates to the cluster:
-
-```sh
-kubectl create secret tls homeserver-tls-cert \
-  --cert=./certs/homeserver.local.crt \
-  --key=./certs/homeserver.local.key \
-  -n components
-```
-
 ## deployment
 
 for the deployment i use [fluxcd](https://fluxcd.io/).
@@ -60,8 +37,6 @@ flux bootstrap github \
 
 ### jenkins
 
-url: `homeserver.local/jenkins`
+url: `lab.steppler.ai/jenkins`
 
-### capacitor
-
-url: `homeserver.local/fluxui`
+### authentik
