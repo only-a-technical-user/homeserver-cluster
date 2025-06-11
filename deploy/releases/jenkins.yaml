@@ -186,7 +186,7 @@ spec:
       jenkinsUrlProtocol: "https"
 
       # -- Set Jenkins URL if you are not using the ingress definitions provided by the chart
-      jenkinsUrl: "https://lab.steppler.ai/jenkins"
+      jenkinsUrl: "https://lab.only-a-user.com/jenkins"
 
       # If you set this prefix and use ingress controller, then you might want to set the ingress path below
       # I.e., "/jenkins"
@@ -739,7 +739,7 @@ spec:
 
         # configures the hostname e.g. jenkins.example.com
         # -- Ingress hostname
-        hostName: lab.steppler.ai
+        hostName: lab.only-a-user.com
         # -- Hostname to serve assets from
         resourceRootUrl:
         # -- Ingress TLS configuration

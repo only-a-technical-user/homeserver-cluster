@@ -37,6 +37,20 @@ flux bootstrap github \
 
 ### jenkins
 
-url: `lab.steppler.ai/jenkins`
+url: `lab.only-a-user.com/jenkins`
 
 ### authentik
+
+### cloudflared
+
+to create the tunnel secret, create the tunnel either through the cli or in the dashboard. then retrieve the token and follow these instructions:
+
+```sh
+echo "<token>" | base64 --decode > <path-to-secret-file>
+```
+
+```sh
+kubectl create secret generic cloudflared-tunnel-secret \
+  --from-file=<path-to-secret-file>
+  --namespace=components
+```
