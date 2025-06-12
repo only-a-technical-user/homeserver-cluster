@@ -14,6 +14,6 @@ spec:
   validation: server
   healthChecks:
     - apiVersion: apps/v1
-      kind: Deployment
+      kind: HelmRelease
       name: authentik
       namespace: components
