@@ -1,49 +1,20 @@
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
-kind: HelmRelease
+apiVersion: v1
+kind: ConfigMap
 metadata:
-  name: cloudflared
+  name: cloudflared-values
   namespace: components
-spec:
-  chart:
-    spec:
-      chart: cloudflare-tunnel
-      version: 0.3.2
-      sourceRef:
-        kind: HelmRepository
-        name: cloudflared
-        namespace: flux-system
-  interval: 15m
-  timeout: 5m
-  releaseName: cloudflared
-  values:
+data:
+  values.yaml: |-
     # Default values for cloudflare-tunnel.
 
     # Cloudflare parameters.
     cloudflare:
-      # Your Cloudflare account number.
-      account: ""
-      # The name of the tunnel this instance will serve
-      tunnelName: "home_lab_001"
-      # The ID of the above tunnel.
-      tunnelId: ""
-      # The secret for the tunnel.
-      secret: ""
-      # If defined, no secret is created for the credentials, and instead, the secret referenced is used
-      secretName: cloudflared-tunnel-secret
-      # If true, turn on WARP routing for TCP
-      enableWarp: false
-      # Define ingress rules for the tunnel. See
-      # https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/configuration/configuration-file/ingress
-      ingress:
-        - hostname: "lab.only-a-user.com"
-          service: "https://traefik.kube-system.svc.cluster.local:443"
-          originRequest:
-            noTLSVerify: true
+      tunnel_token: ""
 
     image:
       repository: cloudflare/cloudflared
       pullPolicy: IfNotPresent
-      # If supplied, this overrides "appVersion"
+      # If supplied, this overrides "latest"
       tag: ""
 
     replicaCount: 2
@@ -73,11 +44,10 @@ spec:
       allowPrivilegeEscalation: false
       capabilities:
         drop:
-          - ALL
+        - ALL
       readOnlyRootFilesystem: true
 
-    resources:
-      {}
+    resources: {}
       # We usually recommend not to specify default resources and to leave this as a conscious
       # choice for the user. This also increases chances charts run on environments with little
       # resources, such as Minikube. If you do want to specify resources, uncomment the following
