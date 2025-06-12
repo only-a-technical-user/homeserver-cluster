@@ -30,7 +30,7 @@ spec:
         enabled: true
         ingressClassName: "traefik"
         hosts:
-          - lab.only-a-user.com/authentik
+          - auth.only-a-user.com
 
     postgresql:
       enabled: true
