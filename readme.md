@@ -4,19 +4,11 @@ this is the readme describing the whole setup of my homeserver
 
 ## server itself
 
-the server itself is a `raspberry pi 4 model b` with 8G ram. connected to it is a 500G external ssd, from which the system also boots. it is connected via usb-3.
-
-it is available in my home network under `homeserver.local`. i can just ssh into it on that url, given that i am on the system with the registered ssh key.
+the server itself is a minipc with 16G ram. it also has a 256G ssd as storage. it runs on ubuntu server 24 lts.
 
 ### kubernetes
 
-installed on the server is a [k3s](https://k3s.io/) cluster. the cluster is bundled with traefik as its ingress. there are no specific configurations. obviously `kubectl`and `helm` are also installed.
-
-```sh
-curl -sfL https://get.k3s.io | sh -
-# Check for Ready node, takes ~30 seconds
-sudo k3s kubectl get node
-```
+installed on the server is a [k3s](https://k3s.io/) cluster. the cluster is bundled with traefik as its ingress. there are no specific configurations. obviously `kubectl`is also installed.
 
 ## deployment
 
@@ -41,16 +33,56 @@ url: `lab.only-a-user.com/jenkins`
 
 ### authentik
 
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: authentik-bootstrap
+  namespace: components
+type: Opaque
+data:
+  bootstrap_password:
+  bootstrap_token:
+  bootstrap_email:
+```
+
 ### cloudflared
 
-to create the tunnel secret, create the tunnel either through the cli or in the dashboard. then retrieve the token and follow these instructions:
-
-```sh
-echo "<token>" | base64 --decode > <path-to-secret-file>
-```
+to create the tunnel secret, create the tunnel in the dashboard. then retrieve the token and follow these instructions:
 
 ```sh
 kubectl create secret generic cloudflared-tunnel-secret \
   --from-file=<path-to-secret-file>
   --namespace=components
+```
+
+#### secret
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cloudflared-secret
+  namespace: components
+type: Opaque
+stringData:
+  values.yaml: |-
+    cloudflare:
+      tunnel_token: "<tunnel-token>"
+```
+
+### weave
+
+```sh
+apiVersion: v1
+kind: Secret
+metadata:
+    name: oidc-auth
+    namespace: dashboard
+stringData:
+    clientID: <client-id>
+    clientSecret: <client-secret>
+    issuerURL: <issuer-url>
+    redirectURL: https://lab.only-a-user.com/oauth2/callback
+    customScopes: openid,email,profile
 ```
