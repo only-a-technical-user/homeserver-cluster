@@ -7,9 +7,9 @@ spec:
   chart:
     spec:
       chart: forgejo
-      version: 0.0.0
+      version: 12.5.3
       sourceRef:
-        kind: HelmRepository
+        kind: OCIRepository
         name: forgejo
         namespace: flux-system
   interval: 15m
