@@ -6,3 +6,5 @@ metadata:
 spec:
   interval: 1h0m0s
   url: oci://code.forgejo.org/forgejo-helm/forgejo
+  ref:
+    tag: 12.5.3
