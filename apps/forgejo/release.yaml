@@ -192,11 +192,11 @@ spec:
           paths:
             - path: /
               pathType: Prefix
-              port: https
-      tls: []
-      #  - secretName: chart-example-tls
-      #    hosts:
-      #      - git.example.com
+              port: http
+      tls:
+        - secretName:
+          hosts:
+            - git.only-a-user.com
 
     # Enables Gateway API HTTPRoute as a replacement for traditional Ingress resources
     ## @section Gateway-API HTTPRoute
