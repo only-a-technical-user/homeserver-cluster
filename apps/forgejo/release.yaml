@@ -6,9 +6,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: forgejo
-      version: 12.5.3
-      sourceRef:
+      chartRef:
         kind: OCIRepository
         name: forgejo
         namespace: flux-system
