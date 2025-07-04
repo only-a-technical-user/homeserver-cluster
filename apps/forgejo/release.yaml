@@ -4,12 +4,10 @@ metadata:
   name: forgejo
   namespace: components
 spec:
-  chart:
-    spec:
-      chartRef:
-        kind: OCIRepository
-        name: forgejo
-        namespace: flux-system
+  chartRef:
+    kind: OCIRepository
+    name: forgejo
+    namespace: flux-system
   interval: 15m
   timeout: 5m
   releaseName: forgejo
