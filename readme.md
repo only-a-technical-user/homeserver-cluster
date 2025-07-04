@@ -48,15 +48,7 @@ data:
 
 ### cloudflared
 
-to create the tunnel secret, create the tunnel in the dashboard. then retrieve the token and follow these instructions:
-
-```sh
-kubectl create secret generic cloudflared-tunnel-secret \
-  --from-file=<path-to-secret-file>
-  --namespace=components
-```
-
-#### secret
+to create the tunnel secret, create the tunnel in the dashboard. then retrieve the token and create a secret like this:
 
 ```yaml
 apiVersion: v1
@@ -73,16 +65,31 @@ stringData:
 
 ### weave
 
-```sh
+```yaml
 apiVersion: v1
 kind: Secret
 metadata:
-    name: oidc-auth
-    namespace: dashboard
+  name: oidc-auth
+  namespace: dashboard
 stringData:
-    clientID: <client-id>
-    clientSecret: <client-secret>
-    issuerURL: <issuer-url>
-    redirectURL: https://lab.only-a-user.com/oauth2/callback
-    customScopes: openid,email,profile
+  clientID: <client-id>
+  clientSecret: <client-secret>
+  issuerURL: <issuer-url>
+  redirectURL: https://lab.only-a-user.com/oauth2/callback
+  customScopes: openid,email,profile
+```
+
+### forgejo
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: forgejo-admin
+  namespace: components
+stringData:
+  username: <admin_username>
+  password: <password>
+  email: "kilian@steppler.ai"
+  passwordMode: keepUpdated
 ```
