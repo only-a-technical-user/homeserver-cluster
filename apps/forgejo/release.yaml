@@ -448,9 +448,6 @@ spec:
       admin:
         # existingSecret: gitea-admin-secret
         existingSecret: forgejo-admin
-      config:
-        server:
-          SSH_DOMAIN = git.only-a-user.com
 
       ## @param gitea.metrics.enabled Enable Forgejo metrics
       ## @param gitea.metrics.serviceMonitor.enabled Enable Forgejo metrics service monitor
@@ -547,6 +544,7 @@ spec:
         server:
           SSH_PORT: 22 # rootful image
           SSH_LISTEN_PORT: 2222 # rootless image
+          SSH_DOMAIN: git.only-a-user.com
 
         ## @param gitea.config.database Database configuration (only necessary with an [externally managed DB](https://code.forgejo.org/forgejo-helm/forgejo-helm#external-database)).
         database: {}
