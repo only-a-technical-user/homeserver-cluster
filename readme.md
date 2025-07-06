@@ -90,6 +90,25 @@ metadata:
 stringData:
   username: <admin_username>
   password: <password>
-  email: "kilian@steppler.ai"
+  email: "<mail>"
   passwordMode: keepUpdated
+```
+
+### harbor
+
+The ht password needs to be generated using this command:
+
+```sh
+htpasswd -nbBC 10 harbor_registry_user {PASSWORD}
+```
+
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: harbor-creds
+  namespace: components
+stringData:
+  REGISTRY_PASSWD: <password>
+  REGISTRY_HTPASSWD: <ht-passwd>
 ```
