@@ -188,7 +188,7 @@ spec:
       annotations:
         kubernetes.io/ingress.class: traefik
       hosts:
-        - host: git.only-a-user.com
+        - host: forgejo.only-a-user.com
           paths:
             - path: /
               pathType: Prefix
@@ -196,7 +196,7 @@ spec:
       tls:
         - secretName:
           hosts:
-            - git.only-a-user.com
+            - forgejo.only-a-user.com
 
     # Enables Gateway API HTTPRoute as a replacement for traditional Ingress resources
     ## @section Gateway-API HTTPRoute
@@ -448,6 +448,9 @@ spec:
       admin:
         # existingSecret: gitea-admin-secret
         existingSecret: forgejo-admin
+      config:
+        server:
+          SSH_DOMAIN = git.only-a-user.com
 
       ## @param gitea.metrics.enabled Enable Forgejo metrics
       ## @param gitea.metrics.serviceMonitor.enabled Enable Forgejo metrics service monitor
