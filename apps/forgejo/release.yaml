@@ -571,7 +571,8 @@ spec:
         oauth2_client: {}
 
         ## @param gitea.config.service Configuration for miscellaneous Forgejo services
-        service: {}
+        service:
+          DISABLE_REGISTRATION: true
 
         ## @param gitea.config.ssh.minimum_key_sizes SSH minimum key sizes
         ssh.minimum_key_sizes: {}
